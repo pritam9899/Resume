@@ -1,56 +1,27 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
+    <base target="_top">
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>3D Cuboid</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>Google Drive Media Loader</title>
 </head>
 <body>
-    <div class="scene">
-        <div class="cuboid">
-            <div class="face front">Front</div>
-            <div class="face back">Back</div>
-            <div class="face left">Left</div>
-            <div class="face right">Right</div>
-            <div class="face top">Top</div>
-            <div class="face bottom">Bottom</div>
-        </div>
-    </div>
-    <script >
-        const cuboid = document.querySelector('.cuboid');
-
-        // Rotate the cuboid on mouse over
-        cuboid.addEventListener('mouseover', () => {
-            cuboid.style.transform = 'rotateY(20deg) rotateX(20deg)';
-        });
-        
-        // Reset the rotation on mouse out
-        cuboid.addEventListener('mouseout', () => {
-            cuboid.style.transform = 'rotateY(0deg) rotateX(0deg)';
-        });
-    </script>
-
-    <div id="mediaContainerWrapper">
+    <div id="mediaContainerWrapper" style="background-color: #eee;">
         <!-- The media (image or video) will be injected here -->
     </div>
 
     <script>
-        function getFileUrl(fileId){
-          google.script.run.withSuccessHandler(function(result){
-            loadDriveFile(result);
-          }).getDriveUrl(fileId);
-        }
-
-        function loadDriveFile(file_Url) {
+        function loadDriveFile(fileId) {
+            const apiKey = 'AIzaSyCIcIXGfsI8NMtAuDmDnOxNNVLkiSKc4Hk'; // Replace with your actual API key
+            const driveUrl = `https://www.googleapis.com/drive/v3/files/${fileId}?alt=media&key=${apiKey}`;
             const xhr = new XMLHttpRequest();
-            xhr.open("GET", file_Url, true);
+            xhr.open("GET", driveUrl, true);
             xhr.responseType = "blob";  // Fetch as binary large object (Blob)
             xhr.onload = function () {
                 if (xhr.status === 200) {
                     const mimeType = xhr.response.type;  // Get the MIME type of the file
                     const url = URL.createObjectURL(xhr.response);  // Create a URL for the file
-                    
+
                     // Determine if it's an image or a video
                     if (mimeType.startsWith('image/')) {
                         displayImage(url);
@@ -94,8 +65,8 @@
 
         // Replace with just the file ID, ensure it's correct
         // loadDriveFile('1rKSfxDTjbfz7eY6vlYyEsGMOhC1e6axg'); // image
-        // getFileUrl('1O0KOee9k2JTOt0JLjxnjcfJZ-VCUxOPF'); // video
-        getFileUrl('1wA9jPryQg_CBotqekUXj-kx-V7j-tqLO');
+        loadDriveFile('1O0KOee9k2JTOt0JLjxnjcfJZ-VCUxOPF'); // video
     </script>
+    <!-- https://drive.google.com/file/d/1O0KOee9k2JTOt0JLjxnjcfJZ-VCUxOPF/view?usp=drive_link -->
 </body>
 </html>
