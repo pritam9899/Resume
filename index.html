@@ -17,7 +17,19 @@
             <div class="face bottom">Bottom</div>
         </div>
     </div>
-    <script src="script.js"></script>
+    <script >
+        const cuboid = document.querySelector('.cuboid');
+
+        // Rotate the cuboid on mouse over
+        cuboid.addEventListener('mouseover', () => {
+            cuboid.style.transform = 'rotateY(20deg) rotateX(20deg)';
+        });
+        
+        // Reset the rotation on mouse out
+        cuboid.addEventListener('mouseout', () => {
+            cuboid.style.transform = 'rotateY(0deg) rotateX(0deg)';
+        });
+    </script>
 
     <div id="mediaContainerWrapper">
         <!-- The media (image or video) will be injected here -->
