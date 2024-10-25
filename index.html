@@ -12,7 +12,8 @@
 
     <script>
         async function getFileUrl() {
-            const fileId='1O0KOee9k2JTOt0JLjxnjcfJZ-VCUxOPF';
+            const fileId='1rKSfxDTjbfz7eY6vlYyEsGMOhC1e6axg'); // image
+            // const fileId='1O0KOee9k2JTOt0JLjxnjcfJZ-VCUxOPF';// video
             const scriptUrl = 'https://script.google.com/macros/s/AKfycbzHWOZhn1r6CxXTOgX4CYoaXjUtzEXLF9hrUlWEY5Jv2vSmBDvurk4MYWbfvxZezNz8Uw/exec';
 
             try {
@@ -76,11 +77,9 @@
             video.style.maxWidth = "100%";
             mediaContainer.appendChild(video);
         }
-
-        // Replace with just the file ID, ensure it's correct
-        // loadDriveFile('1rKSfxDTjbfz7eY6vlYyEsGMOhC1e6axg'); // image
-        loadDriveFile('1O0KOee9k2JTOt0JLjxnjcfJZ-VCUxOPF'); // video
+        
+        loadDriveFile(); 
     </script>
-    <!-- https://drive.google.com/file/d/1O0KOee9k2JTOt0JLjxnjcfJZ-VCUxOPF/view?usp=drive_link -->
+    
 </body>
 </html>
