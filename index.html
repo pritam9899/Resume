@@ -18,5 +18,72 @@
         </div>
     </div>
     <script src="script.js"></script>
+
+    <div id="mediaContainerWrapper">
+        <!-- The media (image or video) will be injected here -->
+    </div>
+
+    <script>
+        function getFileUrl(fileId){
+          google.script.run.withSuccessHandler(function(result){
+            loadDriveFile(result);
+          }).getDriveUrl(fileId);
+        }
+
+        function loadDriveFile(file_Url) {
+            const xhr = new XMLHttpRequest();
+            xhr.open("GET", file_Url, true);
+            xhr.responseType = "blob";  // Fetch as binary large object (Blob)
+            xhr.onload = function () {
+                if (xhr.status === 200) {
+                    const mimeType = xhr.response.type;  // Get the MIME type of the file
+                    const url = URL.createObjectURL(xhr.response);  // Create a URL for the file
+                    
+                    // Determine if it's an image or a video
+                    if (mimeType.startsWith('image/')) {
+                        displayImage(url);
+                    } else if (mimeType.startsWith('video/')) {
+                        displayVideo(url);
+                    } else {
+                        console.error('Unsupported file type:', mimeType);
+                    }
+                } else {
+                    console.error(`Error: ${xhr.status}`);
+                }
+            };
+            xhr.onerror = function () {
+                console.error("Network error while retrieving the file.");
+            };
+            xhr.send();
+        }
+
+        // Function to display the image in an <img> tag
+        function displayImage(url) {
+            const mediaContainer = document.getElementById('mediaContainerWrapper');
+            mediaContainer.innerHTML = '';  // Clear the container
+            const img = document.createElement('img');
+            img.src = url;
+            img.alt = "Loaded Image";
+            img.style.maxWidth = "100%";
+            mediaContainer.appendChild(img);
+        }
+
+        // Function to display the video in a <video> tag
+        function displayVideo(url) {
+            const mediaContainer = document.getElementById('mediaContainerWrapper');
+            mediaContainer.innerHTML = '';  // Clear the container
+            const video = document.createElement('video');
+            video.src = url;
+            video.controls = true;  // Enable controls
+            video.autoplay = true;  // Autoplay video
+            video.style.maxWidth = "100%";
+            mediaContainer.appendChild(video);
+        }
+
+        // Replace with just the file ID, ensure it's correct
+        // loadDriveFile('1rKSfxDTjbfz7eY6vlYyEsGMOhC1e6axg'); // image
+        // getFileUrl('1O0KOee9k2JTOt0JLjxnjcfJZ-VCUxOPF'); // video
+        getFileUrl('1wA9jPryQg_CBotqekUXj-kx-V7j-tqLO');
+    </script>
 </body>
 </html>
