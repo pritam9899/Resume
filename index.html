@@ -6,15 +6,24 @@
     <title>Google Drive Media Loader</title>
 </head>
 <body>
+    <div id="imageContainerWrapper" style="background-color: #eee;">
+        <!--images display here -->
+    </div>
+        <br/>
     <div id="mediaContainerWrapper" style="background-color: #eee;">
         <!-- The media (image or video) will be injected here -->
+        <video width="320" height="240" controls>
+          <source src="" type="video/mp4">
+
+          Your browser does not support the video tag.
+        </video>
     </div>
 
     <script>
         async function getFileUrl() {
             const fileId='1jCWhs8wjwJYzuWGp8GD9Y42IXmnCnwoD'; //tiny image converted using https://tinypng.com
             // const fileId='1rKSfxDTjbfz7eY6vlYyEsGMOhC1e6axg'; // large image
-            // const fileId='1O0KOee9k2JTOt0JLjxnjcfJZ-VCUxOPF';// video
+            const fileId='1O0KOee9k2JTOt0JLjxnjcfJZ-VCUxOPF';// video
             const scriptUrl = 'https://script.google.com/macros/s/AKfycbzHWOZhn1r6CxXTOgX4CYoaXjUtzEXLF9hrUlWEY5Jv2vSmBDvurk4MYWbfvxZezNz8Uw/exec';
 
             try {
@@ -58,7 +67,7 @@
 
         // Function to display the image in an <img> tag
         function displayImage(url) {
-            const mediaContainer = document.getElementById('mediaContainerWrapper');
+            const mediaContainer = document.getElementById('imageContainerWrapper');
             mediaContainer.innerHTML = '';  // Clear the container
             const img = document.createElement('img');
             img.src = url;
